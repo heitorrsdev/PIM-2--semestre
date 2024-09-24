@@ -18,9 +18,9 @@ bool perguntaSimNao() {
     bool respostaValida = false;
 
     while (!respostaValida) {
-        cout << "Por favor, responda apenas 's' ou 'n': ";
+        escreva("Por favor, responda apenas 's' ou 'n': ");
         cin >> resposta;
-        escreva(resposta + "\n");
+
         if (resposta == "Sim" || resposta == "sim" || resposta == "s") {
             respostaValida = true;
             return true;
@@ -28,7 +28,7 @@ bool perguntaSimNao() {
             respostaValida = true;
             return false;
         } else {
-            cout << "Resposta inválida. Tente novamente." << endl;
+            escreva("Resposta inválida. Tente novamente.\n") ;
         }
     }
 }
