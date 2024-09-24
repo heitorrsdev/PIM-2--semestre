@@ -1,13 +1,34 @@
 #include <iostream>
 using namespace std;
 
-// criando uma funçãoo para limpar o terminal
+// limpa o terminal
 void limparTerminal () {
     cout << "\033[2J\033[1;1H";
 }
 
 
-// criando uma função para escrever no terminal
+// escreve no terminal
 void escreva (const string& texto="") {
-    cout << "\n" + texto;
+    cout << texto;
+}
+
+
+bool perguntaSimNao() {
+    string resposta;
+    bool respostaValida = false;
+
+    while (!respostaValida) {
+        cout << "Por favor, responda apenas 's' ou 'n': ";
+        cin >> resposta;
+        escreva(resposta + "\n");
+        if (resposta == "Sim" || resposta == "sim" || resposta == "s") {
+            respostaValida = true;
+            return true;
+        } else if (resposta == "Nao" || resposta == "nao" || resposta == "n") {
+            respostaValida = true;
+            return false;
+        } else {
+            cout << "Resposta inv�lida. Tente novamente." << endl;
+        }
+    }
 }

@@ -1,12 +1,13 @@
  #include <iostream>
  #include <locale.h>
- // importar as funções do arquivo funcoesAuxiliares.cpp
- #include "funcoesAuxiliares.cpp"
+ #include "funcoesAuxiliares.cpp" // arquivo com funções auxiliares
 
  int main() {
     setlocale(LC_ALL, "Portuguese");
     
     limparTerminal();
     escreva("Ola mundão!");
+    bool resposta = perguntaSimNao();
+    escreva(resposta ? "Resposta correta!" : "Resposta errada!");
     return 0;
  }
