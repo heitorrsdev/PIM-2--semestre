@@ -1,15 +1,14 @@
  #include <iostream>
  #include <locale.h>
- #include "funcoesAuxiliares.cpp" // arquivo com funções auxiliares
+ #include "funcoes.cpp"
+
+ using namespace std;
 
  int main() {
     setlocale(LC_ALL, "Portuguese");
     
     limparTerminal();
+    menuComprarProduto();
     
-    escreva("Ola mundão!");
-    
-    bool resposta = perguntaSimNao();
-    escreva(resposta ? "Resposta correta!" : "Resposta errada!");
     return 0;
  }
