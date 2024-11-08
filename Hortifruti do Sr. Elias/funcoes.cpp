@@ -1,5 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
 #include "tipos.cpp"
 
 using namespace std;
