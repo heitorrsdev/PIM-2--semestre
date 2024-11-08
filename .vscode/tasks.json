@@ -1,0 +1,12 @@
+{
+    "command": "g++",
+    "args": [
+        "-Wall",
+        "-Wextra",
+        "-g3",
+        "d:/Users/User/Desktop/Cursos/UNIP/PIM-2-semestre/PIM-2-semestre/Hortifruti do Sr. Elias/funcoes.cpp",
+        "-o",
+        "d:/Users/User/Desktop/Cursos/UNIP/PIM-2-semestre/PIM-2-semestre/Hortifruti do Sr. Elias/output/funcoes.exe",
+        "-mconsole"
+    ]
+}

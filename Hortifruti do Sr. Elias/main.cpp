@@ -1,17 +1,13 @@
- #include <iostream>
- #include <locale.h>
- #include "funcoes.cpp"
+#include <iostream>
+#include <locale.h>
+#include "funcoes.cpp"
 
- using namespace std;
+using namespace std;
 
- int main() {
-    setlocale(LC_ALL, "Portuguese");
+int main() {
+   setlocale(LC_ALL, "Portuguese");
     
-    limparTerminal();
-    menuComprarProduto();
-    
+   limparTerminal();
 
-    //teste 2
-    //teste dnv dnv
-    return 0;
- }
+   return 0;
+}
