@@ -208,7 +208,6 @@ void carregarFornecedores(vector<Fornecedor>& fornecedores) {
 
 
 void menuPrograma(){
-    cout <<"ta exibindo alguma coisa?";
     int opcao = 0;
     carregarProdutos(produtos);
     carregarFornecedores(fornecedores);
