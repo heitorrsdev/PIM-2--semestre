@@ -1,12 +1,22 @@
 {
-    "command": "g++",
-    "args": [
-        "-Wall",
-        "-Wextra",
-        "-g3",
-        "d:/Users/User/Desktop/Cursos/UNIP/PIM-2-semestre/PIM-2-semestre/Hortifruti do Sr. Elias/funcoes.cpp",
-        "-o",
-        "d:/Users/User/Desktop/Cursos/UNIP/PIM-2-semestre/PIM-2-semestre/Hortifruti do Sr. Elias/output/funcoes.exe",
-        "-mconsole"
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "compilar C++",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-Wall",
+                "-Wextra",
+                "-g3",
+                "${fileDirname}/funcoes.cpp",
+                "-o",
+                "${fileDirname}/output/funcoes.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
     ]
 }
