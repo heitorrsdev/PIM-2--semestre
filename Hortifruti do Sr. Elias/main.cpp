@@ -10,5 +10,7 @@
     limparTerminal();
     menuComprarProduto();
     
+
+    //teste 2
     return 0;
  }
