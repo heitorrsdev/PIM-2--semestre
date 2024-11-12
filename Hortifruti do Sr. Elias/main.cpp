@@ -1,6 +1,6 @@
 #include <locale.h>
-#include "headers/funcoes.h"
-#include "headers/tipos.h"
+#include "funcoes.cpp"
+#include "tipos.cpp"
 
 using namespace std;
 

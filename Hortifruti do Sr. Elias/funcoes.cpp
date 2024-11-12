@@ -3,8 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "headers/tipos.h"
-#include "headers/funcoes.h"
+#include "tipos.cpp"
 
 using namespace std;
 
@@ -211,13 +210,16 @@ void carregarFornecedores(vector<Fornecedor>& fornecedores) {
 void calcularCompra(vector<Produto>& produtos) {
     string nomeProduto;
     int tipo;
-    double preco, quantidadeDesejada, total;
+    double total = 0;
     bool produtoEncontrado = false;
 
     cout << "Nome do Produto: ";
     cin >> nomeProduto;
+    
     cout << "Tipo (1 para unitário, 2 para por kilo): ";
     cin >> tipo;
+
+    double quantidadeDesejada;
     cout << "Quantidade desejada: ";
     cin >> quantidadeDesejada;
 
