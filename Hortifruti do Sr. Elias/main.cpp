@@ -1,3 +1,4 @@
+#include <locale.h>
 #include "headers/funcoes.h"
 #include "headers/tipos.h"
 

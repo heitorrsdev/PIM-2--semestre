@@ -1,4 +1,5 @@
 #include <iostream>
+#include "headers/tipos.h"
 
 using namespace std;
 struct Produto {

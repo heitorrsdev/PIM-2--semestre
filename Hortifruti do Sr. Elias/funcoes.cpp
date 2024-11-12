@@ -3,8 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "tipos.h"
-#include "funcoes.h"
+#include "headers/tipos.h"
+#include "headers/funcoes.h"
 
 using namespace std;
 
