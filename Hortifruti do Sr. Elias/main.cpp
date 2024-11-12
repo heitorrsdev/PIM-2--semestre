@@ -1,5 +1,5 @@
-#include "funcoes.h"
-#include "tipos.h"
+#include "headers/funcoes.h"
+#include "headers/tipos.h"
 
 using namespace std;
 
