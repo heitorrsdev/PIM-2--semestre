@@ -5,7 +5,8 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
-#include "funcoes.cpp"
+#include "funcoes.h"
+#include "tipos.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ int main() {
    limparTerminal();
 
    menuPrograma();
-   cout << "Menu foi exibido";
+
 
    return 0;
 }

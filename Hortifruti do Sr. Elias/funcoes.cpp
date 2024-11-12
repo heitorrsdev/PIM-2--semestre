@@ -3,12 +3,13 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "tipos.cpp"
+#include "tipos.h"
+#include "funcoes.h"
 
 using namespace std;
 
-const string NOME_ARQUIVO_PRODUTOS = "DB/produtos.csv";
-const string NOME_ARQUIVO_FORNECEDORES = "DB/fornecedores.csv";
+const string NOME_ARQUIVO_PRODUTOS = "DB/produtos.txt";
+const string NOME_ARQUIVO_FORNECEDORES = "DB/fornecedores.txt";
 
 vector<Produto> produtos;
 vector<Fornecedor> fornecedores;
@@ -62,6 +63,7 @@ void salvarFornecedores(const vector<Fornecedor>& fornecedores) {
                 << fornecedor.nome << ","
                 << fornecedor.contato << "\n";
     }
+    cout <<"Conteúdo salvo..." << endl;
     arquivo.close();
 }
 
@@ -206,6 +208,46 @@ void carregarFornecedores(vector<Fornecedor>& fornecedores) {
     arquivo.close();
 }
 
+void calcularCompra(vector<Produto>& produtos) {
+    string nomeProduto;
+    int tipo;
+    double preco, quantidadeDesejada, total;
+    bool produtoEncontrado = false;
+
+    cout << "Nome do Produto: ";
+    cin >> nomeProduto;
+    cout << "Tipo (1 para unitário, 2 para por kilo): ";
+    cin >> tipo;
+    cout << "Quantidade desejada: ";
+    cin >> quantidadeDesejada;
+
+    // Buscar o produto pelo nome no vetor de produtos
+    for (auto& produto : produtos) {
+        if (produto.nome == nomeProduto && produto.tipo == tipo) {
+            produtoEncontrado = true;
+            
+            // Verificar se a quantidade em estoque é suficiente
+            if (produto.quantidade >= quantidadeDesejada) {
+                // Calcular o preço total
+                total = produto.preco * quantidadeDesejada;
+                
+                // Subtrair a quantidade comprada do estoque
+                produto.quantidade -= quantidadeDesejada;
+
+                cout << "Valor total da compra de " << nomeProduto << ": R$" << total << endl;
+                cout << "Quantidade restante no estoque: " << produto.quantidade << endl;
+            } else {
+                cout << "Quantidade em estoque insuficiente para a compra!" << endl;
+            }
+            break;
+        }
+    }
+
+    if (!produtoEncontrado) {
+        cout << "Produto não encontrado!" << endl;
+    }
+}
+
 
 void menuPrograma(){
     int opcao = 0;
@@ -213,38 +255,46 @@ void menuPrograma(){
     carregarFornecedores(fornecedores);
     do {
         cout << "Menu:" << endl;
-        cout << "1. Adicionar Produto" << endl;
-        cout << "2. Editar Produto" << endl;
-        cout << "3. Listar Produtos" << endl;
-        cout << "4. Listar Fornecedores" << endl;
+        cout << "1. Calcular Compra" << endl;
+        cout << "2. Adicionar Produto" << endl;
+        cout << "3. Editar Produto" << endl;
+        cout << "4. Listar Produtos" << endl;
         cout << "5. Adicionar Fornecedor" << endl;
-        cout << "6. Sair" << endl;
+        cout << "6. Listar Fornecedores" << endl;
+        cout << "7. Salvar" << endl;
+        cout << "8. Sair" << endl;
         cout << "Escolha uma opção: ";
         cin >> opcao;
         
         switch(opcao) {
             case 1:
-                adicionarProduto(produtos, fornecedores);
+                calcularCompra(produtos);
                 break;
             case 2:
-                editarProduto(produtos, fornecedores);
+                adicionarProduto(produtos, fornecedores);
                 break;
             case 3:
-                listarProdutos(produtos, fornecedores);
+                editarProduto(produtos, fornecedores);
                 break;
             case 4:
-                listarFornecedores(fornecedores);
+                listarProdutos(produtos, fornecedores);
                 break;
             case 5:
                 adicionarFornecedor(fornecedores);
                 break;
             case 6:
+                listarFornecedores(fornecedores);
+                break;
+
+            case 7:
                 salvarProdutos(produtos);
                 salvarFornecedores(fornecedores);
+                break;
+            case 8:
                 break;
             default:
                 cout << "Opção inválida!" << endl;
         }
-    } while(opcao != 6);
+    } while(opcao != 8);
 }
 
