@@ -1,10 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <locale.h>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <algorithm>
 #include "funcoes.h"
 #include "tipos.h"
 
