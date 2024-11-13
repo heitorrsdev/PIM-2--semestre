@@ -3,27 +3,30 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "tipos.h"
-#include "funcoes.h"
+#include <locale.h>
+#include "tipos.cpp"
 
 using namespace std;
 
-const string NOME_ARQUIVO_PRODUTOS = "DB/produtos.txt";
-const string NOME_ARQUIVO_FORNECEDORES = "DB/fornecedores.txt";
+const string NOME_ARQUIVO_PRODUTOS = "DB/produtos.csv"; // alterar para o caminho de rede para referenciar o servidor
+const string NOME_ARQUIVO_FORNECEDORES = "DB/fornecedores.csv"; // alterar para o caminho de rede para referenciar o servidor
 
 vector<Produto> produtos;
 vector<Fornecedor> fornecedores;
 
 void limparTerminal () {
-    cout << "\033[2J\033[1;1H";
+    cout << "\033";
 }
 
 Produto criarProduto(int id, const vector<Fornecedor>& fornecedores) {
     Produto produto;
     produto.id = id;
+
     cin.ignore();
     cout << "Nome: ";
+    
     getline(cin, produto.nome);
+    
     cout << "Preço: ";
     cin >> produto.preco;
     cout << "Tipo (1 para unitário, 2 para por kilo): ";
@@ -44,6 +47,7 @@ Produto criarProduto(int id, const vector<Fornecedor>& fornecedores) {
 void salvarProdutos(const vector<Produto>& produtos) {
     ofstream arquivo(NOME_ARQUIVO_PRODUTOS);
     arquivo << "ID,Nome,Preco,Tipo,Quantidade,FornecedorID\n";
+    
     for(const auto& produto : produtos) {
         arquivo << produto.id << ","
                 << produto.nome << ","
@@ -52,7 +56,7 @@ void salvarProdutos(const vector<Produto>& produtos) {
                 << produto.quantidade << ","
                 << produto.fornecedorID << "\n";
     }
-    arquivo.close();
+    
 }
 
 void salvarFornecedores(const vector<Fornecedor>& fornecedores) {
@@ -64,7 +68,7 @@ void salvarFornecedores(const vector<Fornecedor>& fornecedores) {
                 << fornecedor.contato << "\n";
     }
     cout <<"Conteúdo salvo..." << endl;
-    arquivo.close();
+    
 }
 
 void adicionarProduto(vector<Produto>& produtos, const vector<Fornecedor>& fornecedores) {
@@ -78,9 +82,10 @@ void adicionarProduto(vector<Produto>& produtos, const vector<Fornecedor>& forne
 }
 
 void editarProduto(vector<Produto>& produtos, const vector<Fornecedor>& fornecedores) {
-    int id;
     cout << "Informe o ID do produto que deseja editar: ";
+    int id;
     cin >> id;
+
     bool encontrado = false;
     for(auto& produto : produtos) {
         if(produto.id == id) {
@@ -101,7 +106,7 @@ void editarProduto(vector<Produto>& produtos, const vector<Fornecedor>& forneced
 
 void listarProdutos(const vector<Produto>& produtos, const vector<Fornecedor>& fornecedores) {
     for(const auto& produto : produtos) {
-        cout << "ID: " << produto.id << endl;
+        cout << "\n-------------------------" << endl << "ID: " << produto.id << endl;
         cout << "Nome: " << produto.nome << endl;
         cout << "Preço: " << produto.preco << endl;
         cout << "Tipo: " << (produto.tipo == 1 ? "Unitário" : "Por Kilo") << endl;
@@ -136,11 +141,14 @@ void listarFornecedores(const vector<Fornecedor>& fornecedores) {
 Fornecedor criarFornecedor(int id) {
     Fornecedor fornecedor;
     fornecedor.id = id;
+
     cin.ignore();
     cout << "Nome: ";
     getline(cin, fornecedor.nome);
+    
     cout << "Contato: ";
     getline(cin, fornecedor.contato);
+    
     return fornecedor;
 }
 
@@ -148,17 +156,22 @@ void adicionarFornecedor(vector<Fornecedor>& fornecedores) {
     int id;
     cout << "ID do Fornecedor: ";
     cin >> id;
+    
     Fornecedor novoFornecedor = criarFornecedor(id);
     fornecedores.push_back(novoFornecedor);
     salvarFornecedores(fornecedores);
+    
     cout << "Fornecedor adicionado com sucesso!" << endl;
 }
 
 void carregarProdutos(vector<Produto>& produtos) {
     ifstream arquivo(NOME_ARQUIVO_PRODUTOS);
+    
     if(!arquivo.is_open()) return;
+    
     string linha;
     getline(arquivo, linha); // Ignorar a linha de cabeçalho
+    
     while(getline(arquivo, linha)) {
         Produto produto;
         stringstream ss(linha);
@@ -188,7 +201,9 @@ void carregarProdutos(vector<Produto>& produtos) {
 
 void carregarFornecedores(vector<Fornecedor>& fornecedores) {
     ifstream arquivo(NOME_ARQUIVO_FORNECEDORES);
+    
     if(!arquivo.is_open()) return;
+    
     string linha;
     getline(arquivo, linha); // Ignorar a linha de cabeçalho
     while(getline(arquivo, linha)) {
@@ -209,61 +224,73 @@ void carregarFornecedores(vector<Fornecedor>& fornecedores) {
 }
 
 void calcularCompra(vector<Produto>& produtos) {
-    string nomeProduto;
-    int tipo;
-    double preco, quantidadeDesejada, total;
+    double total = 0;
     bool produtoEncontrado = false;
 
+    string nomeProduto = "";
     cout << "Nome do Produto: ";
     cin >> nomeProduto;
+    
+    int tipo;
     cout << "Tipo (1 para unitário, 2 para por kilo): ";
     cin >> tipo;
+
+    double quantidadeDesejada;
     cout << "Quantidade desejada: ";
     cin >> quantidadeDesejada;
 
     // Buscar o produto pelo nome no vetor de produtos
-    for (auto& produto : produtos) {
-        if (produto.nome == nomeProduto && produto.tipo == tipo) {
-            produtoEncontrado = true;
-            
-            // Verificar se a quantidade em estoque é suficiente
-            if (produto.quantidade >= quantidadeDesejada) {
-                // Calcular o preço total
-                total = produto.preco * quantidadeDesejada;
+    if (!produtos.empty()) {
+        for (auto& produto : produtos) {
+            if (produto.nome == nomeProduto && produto.tipo == tipo) {
+                produtoEncontrado = true;
                 
-                // Subtrair a quantidade comprada do estoque
-                produto.quantidade -= quantidadeDesejada;
+                // Verificar se a quantidade em estoque é suficiente
+                if (produto.quantidade >= quantidadeDesejada) {
+                    // Calcular o preço total
+                    total = produto.preco * quantidadeDesejada;
+                    
+                    // Subtrair a quantidade comprada do estoque
+                    produto.quantidade -= quantidadeDesejada;
 
-                cout << "Valor total da compra de " << nomeProduto << ": R$" << total << endl;
-                cout << "Quantidade restante no estoque: " << produto.quantidade << endl;
-            } else {
-                cout << "Quantidade em estoque insuficiente para a compra!" << endl;
+                    cout << "Valor total da compra de " << nomeProduto << ": R$" << total << endl;
+                    cout << "Quantidade restante no estoque: " << produto.quantidade << endl;
+                } else {
+                    cout << "Quantidade em estoque insuficiente para a compra!" << endl;
+                }
+                break;
+            }else {
+                produtoEncontrado = false;
+                cout << "\nProduto nao encontrado!" << endl;
             }
-            break;
         }
+        if (!produtoEncontrado) {
+            cout << "Produto não encontrado!" << endl;
+        }
+    }else {
+        cout << "\nNenhum produto cadastrado." << endl;
     }
 
-    if (!produtoEncontrado) {
-        cout << "Produto não encontrado!" << endl;
-    }
 }
 
 
 void menuPrograma(){
     int opcao = 0;
+
     carregarProdutos(produtos);
     carregarFornecedores(fornecedores);
+    
     do {
-        cout << "Menu:" << endl;
-        cout << "1. Calcular Compra" << endl;
-        cout << "2. Adicionar Produto" << endl;
-        cout << "3. Editar Produto" << endl;
-        cout << "4. Listar Produtos" << endl;
-        cout << "5. Adicionar Fornecedor" << endl;
-        cout << "6. Listar Fornecedores" << endl;
-        cout << "7. Salvar" << endl;
-        cout << "8. Sair" << endl;
-        cout << "Escolha uma opção: ";
+        cout << "\n Menu:" << endl;
+        cout << " 1. Calcular Compra" << endl;
+        cout << " 2. Adicionar Produto" << endl;
+        cout << " 3. Editar Produto" << endl;
+        cout << " 4. Listar Produtos" << endl;
+        cout << " 5. Adicionar Fornecedor" << endl;
+        cout << " 6. Listar Fornecedores" << endl;
+        cout << " 7. Sair" << endl;
+
+        cout << "\nEscolha uma opção: ";
         cin >> opcao;
         
         switch(opcao) {
@@ -285,16 +312,10 @@ void menuPrograma(){
             case 6:
                 listarFornecedores(fornecedores);
                 break;
-
             case 7:
-                salvarProdutos(produtos);
-                salvarFornecedores(fornecedores);
-                break;
-            case 8:
                 break;
             default:
                 cout << "Opção inválida!" << endl;
         }
-    } while(opcao != 8);
+    } while(opcao != 7);
 }
-
