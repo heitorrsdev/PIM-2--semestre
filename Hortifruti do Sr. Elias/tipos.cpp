@@ -1,16 +1,13 @@
-#ifndef TIPOS_H
-#define TIPOS_H
+#include <iostream>
 
-#include <string>
 using namespace std;
-
 struct Produto {
     int id;
     string nome;
     double preco;
     int tipo; // 1 para unitário, 2 para por kilo
     int quantidade;
-    int fornecedorID;
+    int fornecedorID; // Referência ao fornecedor pelo ID
 };
 
 struct Fornecedor {
@@ -18,5 +15,3 @@ struct Fornecedor {
     string nome;
     string contato;
 };
-
-#endif // TIPOS_H
