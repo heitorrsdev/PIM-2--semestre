@@ -8,13 +8,8 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-const string NOME_ARQUIVO_PRODUTOS = "DB/produtos.csv"; // alterar para o caminho de rede para referenciar o servidor
-const string NOME_ARQUIVO_FORNECEDORES = "DB/fornecedores.csv"; // alterar para o caminho de rede para referenciar o servidor
-=======
-const string NOME_ARQUIVO_PRODUTOS = "DB/produtos.txt"; // alterar para o caminho de rede para referenciar o servidor
-const string NOME_ARQUIVO_FORNECEDORES = "DB/fornecedores.txt"; // alterar para o caminho de rede para referenciar o servidor
->>>>>>> d68c3535630009681230560079f2443689648cfd
+const string NOME_ARQUIVO_PRODUTOS = "produtos.csv"; // alterar para o caminho de rede para referenciar o servidor
+const string NOME_ARQUIVO_FORNECEDORES = "fornecedores.csv"; // alterar para o caminho de rede para referenciar o servidor
 
 vector<Produto> produtos;
 vector<Fornecedor> fornecedores;
@@ -32,13 +27,9 @@ Produto criarProduto(int id, const vector<Fornecedor>& fornecedores) {
     
     getline(cin, produto.nome);
     
-<<<<<<< HEAD
     cout << "Pre√ßo: ";
-=======
-    cout << "PreÁo: ";
->>>>>>> d68c3535630009681230560079f2443689648cfd
     cin >> produto.preco;
-    cout << "Tipo (1 para unit·rio, 2 para por kilo): ";
+    cout << "Tipo (1 para unit√°rio, 2 para por kilo): ";
     cin >> produto.tipo;
     cout << "Quantidade: ";
     cin >> produto.quantidade;
@@ -54,7 +45,7 @@ Produto criarProduto(int id, const vector<Fornecedor>& fornecedores) {
 }
 
 void salvarProdutos(const vector<Produto>& produtos) {
-    //N√O EST¡ FUNCIONANDO
+    //N√ÉO EST√Å FUNCIONANDO
     ofstream arquivo(NOME_ARQUIVO_PRODUTOS);
     arquivo << "ID,Nome,Preco,Tipo,Quantidade,FornecedorID\n";
     
@@ -70,7 +61,7 @@ void salvarProdutos(const vector<Produto>& produtos) {
 }
 
 void salvarFornecedores(const vector<Fornecedor>& fornecedores) {
-    //N„o est· funcionando
+    //N√£o est√° funcionando
     ofstream arquivo(NOME_ARQUIVO_FORNECEDORES);
     arquivo << "ID,Nome,Contato\n";
     for(const auto& fornecedor : fornecedores) {
@@ -78,13 +69,8 @@ void salvarFornecedores(const vector<Fornecedor>& fornecedores) {
                 << fornecedor.nome << ","
                 << fornecedor.contato << "\n";
     }
-<<<<<<< HEAD
     cout <<"Conte√∫do salvo..." << endl;
     
-=======
-    cout <<"Conte˙do salvo..." << endl;
-    arquivo.close();
->>>>>>> d68c3535630009681230560079f2443689648cfd
 }
 
 void adicionarProduto(vector<Produto>& produtos, const vector<Fornecedor>& fornecedores) {
@@ -116,7 +102,7 @@ void editarProduto(vector<Produto>& produtos, const vector<Fornecedor>& forneced
         salvarProdutos(produtos);
         cout << "Produto editado com sucesso!" << endl;
     } else {
-        cout << "Produto n„o encontrado." << endl;
+        cout << "Produto n√£o encontrado." << endl;
     }
 }
 
@@ -124,8 +110,8 @@ void listarProdutos(const vector<Produto>& produtos, const vector<Fornecedor>& f
     for(const auto& produto : produtos) {
         cout << "\n-------------------------" << endl << "ID: " << produto.id << endl;
         cout << "Nome: " << produto.nome << endl;
-        cout << "PreÁo: " << produto.preco << endl;
-        cout << "Tipo: " << (produto.tipo == 1 ? "Unit·rio" : "Por Kilo") << endl;
+        cout << "Pre√ßo: " << produto.preco << endl;
+        cout << "Tipo: " << (produto.tipo == 1 ? "Unit√°rio" : "Por Kilo") << endl;
         cout << "Quantidade: " << produto.quantidade << endl;
         
         // Buscar fornecedor
@@ -137,7 +123,7 @@ void listarProdutos(const vector<Produto>& produtos, const vector<Fornecedor>& f
             cout << "Fornecedor: " << it->nome << endl;
             cout << "Contato do Fornecedor: " << it->contato << endl;
         } else {
-            cout << "Fornecedor: N„o encontrado" << endl;
+            cout << "Fornecedor: N√£o encontrado" << endl;
         }
 
         cout << "-------------------------" << endl;
@@ -186,11 +172,7 @@ void carregarProdutos(vector<Produto>& produtos) {
     if(!arquivo.is_open()) return;
     
     string linha;
-<<<<<<< HEAD
     getline(arquivo, linha); // Ignorar a linha de cabe√ßalho
-=======
-    getline(arquivo, linha); // Ignorar a linha de cabeÁalho
->>>>>>> d68c3535630009681230560079f2443689648cfd
     
     while(getline(arquivo, linha)) {
         Produto produto;
@@ -225,7 +207,7 @@ void carregarFornecedores(vector<Fornecedor>& fornecedores) {
     if(!arquivo.is_open()) return;
     
     string linha;
-    getline(arquivo, linha); // Ignorar a linha de cabeÁalho
+    getline(arquivo, linha); // Ignorar a linha de cabe√ßalho
     while(getline(arquivo, linha)) {
         Fornecedor fornecedor;
         stringstream ss(linha);
@@ -252,11 +234,7 @@ void calcularCompra(vector<Produto>& produtos) {
     cin >> nomeProduto;
     
     int tipo;
-<<<<<<< HEAD
     cout << "Tipo (1 para unit√°rio, 2 para por kilo): ";
-=======
-    cout << "Tipo (1 para unit·rio, 2 para por kilo): ";
->>>>>>> d68c3535630009681230560079f2443689648cfd
     cin >> tipo;
 
     double quantidadeDesejada;
@@ -269,15 +247,9 @@ void calcularCompra(vector<Produto>& produtos) {
             if (produto.nome == nomeProduto && produto.tipo == tipo) {
                 produtoEncontrado = true;
                 
-<<<<<<< HEAD
                 // Verificar se a quantidade em estoque √© suficiente
                 if (produto.quantidade >= quantidadeDesejada) {
                     // Calcular o pre√ßo total
-=======
-                // Verificar se a quantidade em estoque È suficiente
-                if (produto.quantidade >= quantidadeDesejada) {
-                    // Calcular o preÁo total
->>>>>>> d68c3535630009681230560079f2443689648cfd
                     total = produto.preco * quantidadeDesejada;
                     
                     // Subtrair a quantidade comprada do estoque
@@ -295,11 +267,7 @@ void calcularCompra(vector<Produto>& produtos) {
             }
         }
         if (!produtoEncontrado) {
-<<<<<<< HEAD
             cout << "Produto n√£o encontrado!" << endl;
-=======
-            cout << "Produto n„o encontrado!" << endl;
->>>>>>> d68c3535630009681230560079f2443689648cfd
         }
     }else {
         cout << "\nNenhum produto cadastrado." << endl;
@@ -315,11 +283,7 @@ void menuPrograma(){
     carregarFornecedores(fornecedores);
     
     do {
-<<<<<<< HEAD
         cout << "\n Menu:" << endl;
-=======
-        cout << "\nMenu:" << endl;
->>>>>>> d68c3535630009681230560079f2443689648cfd
         cout << " 1. Calcular Compra" << endl;
         cout << " 2. Adicionar Produto" << endl;
         cout << " 3. Editar Produto" << endl;
@@ -328,11 +292,7 @@ void menuPrograma(){
         cout << " 6. Listar Fornecedores" << endl;
         cout << " 7. Sair" << endl;
 
-<<<<<<< HEAD
         cout << "\nEscolha uma op√ß√£o: ";
-=======
-        cout << "\nEscolha uma opÁ„o: ";
->>>>>>> d68c3535630009681230560079f2443689648cfd
         cin >> opcao;
         
         switch(opcao) {
@@ -357,12 +317,7 @@ void menuPrograma(){
             case 7:
                 break;
             default:
-                cout << "OpÁ„o inv·lida!" << endl;
+                cout << "Op√ß√£o inv√°lida!" << endl;
         }
     } while(opcao != 7);
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> d68c3535630009681230560079f2443689648cfd
