@@ -8,8 +8,8 @@
 
 using namespace std;
 
-const string NOME_ARQUIVO_PRODUTOS = "DB/produtos.txt";
-const string NOME_ARQUIVO_FORNECEDORES = "DB/fornecedores.txt";
+const string NOME_ARQUIVO_PRODUTOS = "DB/produtos.txt"; // alterar para o caminho de rede para referenciar o servidor
+const string NOME_ARQUIVO_FORNECEDORES = "DB/fornecedores.txt"; // alterar para o caminho de rede para referenciar o servidor
 
 vector<Produto> produtos;
 vector<Fornecedor> fornecedores;
@@ -227,7 +227,7 @@ void calcularCompra(vector<Produto>& produtos) {
     double total = 0;
     bool produtoEncontrado = false;
 
-    string nomeProduto;
+    string nomeProduto = "";
     cout << "Nome do Produto: ";
     cin >> nomeProduto;
     
@@ -240,30 +240,37 @@ void calcularCompra(vector<Produto>& produtos) {
     cin >> quantidadeDesejada;
 
     // Buscar o produto pelo nome no vetor de produtos
-    for (auto& produto : produtos) {
-        if (produto.nome == nomeProduto && produto.tipo == tipo) {
-            produtoEncontrado = true;
-            
-            // Verificar se a quantidade em estoque é suficiente
-            if (produto.quantidade >= quantidadeDesejada) {
-                // Calcular o preço total
-                total = produto.preco * quantidadeDesejada;
+    if (!produtos.empty()) {
+        for (auto& produto : produtos) {
+            if (produto.nome == nomeProduto && produto.tipo == tipo) {
+                produtoEncontrado = true;
                 
-                // Subtrair a quantidade comprada do estoque
-                produto.quantidade -= quantidadeDesejada;
+                // Verificar se a quantidade em estoque é suficiente
+                if (produto.quantidade >= quantidadeDesejada) {
+                    // Calcular o preço total
+                    total = produto.preco * quantidadeDesejada;
+                    
+                    // Subtrair a quantidade comprada do estoque
+                    produto.quantidade -= quantidadeDesejada;
 
-                cout << "Valor total da compra de " << nomeProduto << ": R$" << total << endl;
-                cout << "Quantidade restante no estoque: " << produto.quantidade << endl;
-            } else {
-                cout << "Quantidade em estoque insuficiente para a compra!" << endl;
+                    cout << "Valor total da compra de " << nomeProduto << ": R$" << total << endl;
+                    cout << "Quantidade restante no estoque: " << produto.quantidade << endl;
+                } else {
+                    cout << "Quantidade em estoque insuficiente para a compra!" << endl;
+                }
+                break;
+            }else {
+                produtoEncontrado = false;
+                cout << "\nProduto nao encontrado!" << endl;
             }
-            break;
         }
+        if (!produtoEncontrado) {
+            cout << "Produto não encontrado!" << endl;
+        }
+    }else {
+        cout << "\nNenhum produto cadastrado." << endl;
     }
 
-    if (!produtoEncontrado) {
-        cout << "Produto não encontrado!" << endl;
-    }
 }
 
 
@@ -275,14 +282,14 @@ void menuPrograma(){
     
     do {
         cout << "\nMenu:" << endl;
-        cout << "1. Calcular Compra" << endl;
-        cout << "2. Adicionar Produto" << endl;
-        cout << "3. Editar Produto" << endl;
-        cout << "4. Listar Produtos" << endl;
-        cout << "5. Adicionar Fornecedor" << endl;
-        cout << "6. Listar Fornecedores" << endl;
-        cout << "7. Salvar" << endl;
-        cout << "8. Sair" << endl;
+        cout << " 1. Calcular Compra" << endl;
+        cout << " 2. Adicionar Produto" << endl;
+        cout << " 3. Editar Produto" << endl;
+        cout << " 4. Listar Produtos" << endl;
+        cout << " 5. Adicionar Fornecedor" << endl;
+        cout << " 6. Listar Fornecedores" << endl;
+        cout << " 7. Sair" << endl;
+
         cout << "Escolha uma opção: ";
         cin >> opcao;
         
@@ -305,12 +312,7 @@ void menuPrograma(){
             case 6:
                 listarFornecedores(fornecedores);
                 break;
-
             case 7:
-                salvarProdutos(produtos);
-                salvarFornecedores(fornecedores);
-                break;
-            case 8:
                 break;
             default:
                 cout << "Opção inválida!" << endl;
