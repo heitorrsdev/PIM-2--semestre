@@ -271,13 +271,32 @@ void calcularCompra(vector<Produto>& produtos) {
 
 }
 
+void relatorioEstoque(vector<Produto>& produtos) {
+    int quantidadeMinima = 10;
+    if (!produtos.empty()) {
+        cout << "\nProdutos em baixa quantidade de estoque:" << endl;
+        for (auto& produto : produtos) {
+            if (produto.quantidade <= quantidadeMinima) {
+                cout << "\n-------------------------" << endl;
+                cout << "ID: " << produto.id << endl;
+                cout << "Produto: " << produto.nome << endl;
+                cout << "Quantidade em estoque: " << produto.quantidade << endl;
+                cout << "Fornecedor: " << produto.fornecedorID << endl;
+                cout << "-------------------------" << endl;
+            }
+        }
+    }else{
+        cout << "\nNenhum produto cadastrado." << endl;
+    }
+}
+
 
 void menuPrograma(){
     int opcao = 0;
 
     carregarProdutos(produtos);
     carregarFornecedores(fornecedores);
-    const int opcaoSair = 7;
+    const int opcaoSair = 8;
     do {
         cout << "\n Menu:" << endl;
         cout << " 1. Calcular Compra" << endl;
@@ -286,6 +305,7 @@ void menuPrograma(){
         cout << " 4. Listar Produtos" << endl;
         cout << " 5. Adicionar Fornecedor" << endl;
         cout << " 6. Listar Fornecedores" << endl;
+        cout << " 7. Relatório de Estoque" << endl;
         cout << " " << opcaoSair << ". Sair" << endl;
 
         cout << "\nEscolha uma opção: ";
@@ -310,6 +330,9 @@ void menuPrograma(){
                 break;
             case 6:
                 listarFornecedores(fornecedores);
+                break;
+            case 7:
+                relatorioEstoque(produtos);
                 break;
             case opcaoSair:
                 break;
