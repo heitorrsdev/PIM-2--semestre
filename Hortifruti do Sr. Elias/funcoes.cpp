@@ -276,7 +276,7 @@ void relatorioEstoque(vector<Produto>& produtos) {
     if (!produtos.empty()) {
         cout << "\nProdutos em baixa quantidade de estoque:" << endl;
         for (auto& produto : produtos) {
-            if (produto.quantidade <= quantidadeMinima) {
+            if (produto.quantidade <= quantidadeMinima && produto.quantidade > 0) {
                 cout << "\n-------------------------" << endl;
                 cout << "ID: " << produto.id << endl;
                 cout << "Produto: " << produto.nome << endl;
