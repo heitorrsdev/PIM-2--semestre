@@ -45,6 +45,7 @@ Produto criarProduto(int id, const vector<Fornecedor>& fornecedores) {
 }
 
 void salvarProdutos(const vector<Produto>& produtos) {
+    //NÃO ESTÁ FUNCIONANDO
     ofstream arquivo(NOME_ARQUIVO_PRODUTOS);
     arquivo << "ID,Nome,Preco,Tipo,Quantidade,FornecedorID\n";
     
@@ -60,6 +61,7 @@ void salvarProdutos(const vector<Produto>& produtos) {
 }
 
 void salvarFornecedores(const vector<Fornecedor>& fornecedores) {
+    //Não está funcionando
     ofstream arquivo(NOME_ARQUIVO_FORNECEDORES);
     arquivo << "ID,Nome,Contato\n";
     for(const auto& fornecedor : fornecedores) {
@@ -106,7 +108,7 @@ void editarProduto(vector<Produto>& produtos, const vector<Fornecedor>& forneced
 
 void listarProdutos(const vector<Produto>& produtos, const vector<Fornecedor>& fornecedores) {
     for(const auto& produto : produtos) {
-        cout << "ID: " << produto.id << endl;
+        cout << "\n-------------------------" << endl << "ID: " << produto.id << endl;
         cout << "Nome: " << produto.nome << endl;
         cout << "Preço: " << produto.preco << endl;
         cout << "Tipo: " << (produto.tipo == 1 ? "Unitário" : "Por Kilo") << endl;
@@ -290,7 +292,7 @@ void menuPrograma(){
         cout << " 6. Listar Fornecedores" << endl;
         cout << " 7. Sair" << endl;
 
-        cout << "Escolha uma opção: ";
+        cout << "\nEscolha uma opção: ";
         cin >> opcao;
         
         switch(opcao) {
@@ -317,6 +319,6 @@ void menuPrograma(){
             default:
                 cout << "Opção inválida!" << endl;
         }
-    } while(opcao != 8);
+    } while(opcao != 7);
 }
 
