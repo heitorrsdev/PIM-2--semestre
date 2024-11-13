@@ -243,7 +243,7 @@ void calcularCompra(vector<Produto>& produtos) {
             if (produto.nome == nomeProduto && produto.tipo == tipo) {
                 produtoEncontrado = true;
                 
-                // Verificar se a quantidade em estoque Ã© suficiente
+                // Verificar se a quantidade em estoque é suficiente
                 if (produto.quantidade >= quantidadeDesejada) {
                     // Calcular o preço total
                     total = produto.preco * quantidadeDesejada;
