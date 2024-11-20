@@ -13,3 +13,5 @@ int main() {
 
    return 0;
 }
+
+// utilizar o comando g++ -Wall -Wextra -g3 main.cpp funcoes.cpp -o output/ para compilação
